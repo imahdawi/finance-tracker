@@ -1,28 +1,37 @@
 @media (max-width: 880px) {
   .app-shell { grid-template-columns: 1fr; }
 
-  /* ===== الشريط الجانبي السفلي ===== */
+  /* ===== الشريط الجانبي السفلي - طائر في الهوا ===== */
   .sidebar {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    top: auto;
+    bottom: 20px; /* ===== مش لامس تحت خالص ===== */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92%;
+    max-width: 500px;
     height: auto;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    padding: 8px 12px calc(12px + env(safe-area-inset-bottom));
+    padding: 10px 16px calc(12px + env(safe-area-inset-bottom));
     gap: 4px;
     z-index: 100;
     background: var(--primary);
-    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35);
     border-left: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    /* ===== إضافة الزوايا الدائرية ===== */
-    border-radius: 20px 20px 0 0;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    /* ===== حواف دائرية من كل الجوانب ===== */
+    border-radius: 24px !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+  }
+
+  /* ===== الوضع الليلي ===== */
+  [data-theme="dark"] .sidebar {
+    background: #1C2921;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   .sidebar-brand,
@@ -33,7 +42,7 @@
   .sidebar-nav {
     flex-direction: row;
     width: 100%;
-    gap: 2px;
+    gap: 4px;
     justify-content: space-around;
   }
 
@@ -41,12 +50,12 @@
     flex-direction: column;
     gap: 2px;
     font-size: 0.6rem;
-    padding: 6px 8px;
+    padding: 8px 12px;
     flex: 1;
     text-align: center;
-    border-radius: 12px;
+    border-radius: 14px;
     color: #C9D9CF;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
   }
 
   .nav-link span {
@@ -56,7 +65,7 @@
   }
 
   .nav-link i {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     opacity: 0.8;
     margin: 0;
   }
@@ -64,7 +73,8 @@
   .nav-link.active {
     background: var(--accent);
     color: var(--primary-dark);
-    border-radius: 12px;
+    border-radius: 14px;
+    transform: scale(1.02);
   }
 
   .nav-link.active i {
@@ -72,22 +82,76 @@
   }
 
   .nav-link:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.1);
     color: #fff;
-    border-radius: 12px;
+    border-radius: 14px;
   }
 
   /* ===== المحتوى الرئيسي ===== */
   .main {
-    padding: 18px 14px 100px;
+    padding: 18px 14px 120px;
   }
 
+  /* ===== الأزرار في الأعلى (فوق شمال) ===== */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .topbar-heading {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .topbar-heading h1 {
+    font-size: 1.2rem;
+  }
+
+  .topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .icon-btn-circle {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    color: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .icon-btn-circle:hover {
+    background: var(--surface-sunken);
+    color: var(--ink);
+  }
+
+  .icon-btn-circle.danger:hover {
+    background: var(--danger-tint);
+    color: var(--danger);
+    border-color: var(--danger);
+  }
+
+  #addBtn {
+    font-size: 0.8rem;
+    padding: 8px 14px;
+    white-space: nowrap;
+  }
+
+  /* ===== باقي التعديلات ===== */
   .two-col {
     grid-template-columns: 1fr;
-  }
-
-  .topbar h1 {
-    font-size: 1.3rem;
   }
 
   .grid-stats {
@@ -103,40 +167,6 @@
     font-size: 1.2rem;
   }
 
-  /* ===== الأزرار في الأعلى ===== */
-  .topbar-actions {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-
-  .icon-btn-circle {
-    width: 34px;
-    height: 34px;
-    font-size: 0.85rem;
-    border-radius: 50%;
-    border: 1.5px solid var(--border);
-    background: var(--surface);
-    color: var(--ink-soft);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-  }
-
-  .icon-btn-circle:hover {
-    background: var(--surface-sunken);
-    color: var(--ink);
-  }
-
-  .icon-btn-circle.danger:hover {
-    background: var(--danger-tint);
-    color: var(--danger);
-    border-color: var(--danger);
-  }
-
-  /* ===== الجرة ===== */
   .jar-wrap {
     width: 72px;
     height: 92px;
@@ -156,7 +186,6 @@
     font-size: 0.8rem;
   }
 
-  /* ===== المودال ===== */
   .modal-box,
   .modal-content {
     padding: 18px;
@@ -164,13 +193,11 @@
     border-radius: var(--radius-md);
   }
 
-  /* ===== الفوتر ===== */
   .footer {
-    padding: 18px 12px 100px;
+    padding: 18px 12px 120px;
     font-size: 0.7rem;
   }
 
-  /* ===== الإعدادات ===== */
   .settings-row {
     flex-direction: column;
     align-items: stretch;
@@ -198,7 +225,6 @@
     grid-template-columns: 1fr 1fr;
   }
 
-  /* ===== التحليلات ===== */
   .analytics-stats {
     grid-template-columns: 1fr 1fr;
     gap: 0.6rem;
@@ -234,7 +260,6 @@
     grid-template-columns: 1fr 1fr;
   }
 
-  /* ===== العمليات ===== */
   .filters-grid {
     grid-template-columns: 1fr;
     gap: 0.5rem;
@@ -266,23 +291,6 @@
     flex-wrap: wrap;
   }
 
-  /* ===== تحسين التبويب ===== */
-  .topbar {
-    flex-direction: column;
-    align-items: stretch;
-    text-align: center;
-    gap: 10px;
-  }
-
-  .topbar-heading h1 {
-    font-size: 1.2rem;
-  }
-
-  .topbar-actions {
-    justify-content: center;
-    width: 100%;
-  }
-
   .section-title {
     flex-direction: column;
     align-items: stretch;
@@ -298,7 +306,6 @@
     width: 100%;
   }
 
-  /* ===== البوب أوفر ===== */
   .info-popover {
     max-width: 92%;
   }
@@ -317,8 +324,16 @@
     font-size: 1.1rem;
   }
 
-  .topbar h1 {
+  .topbar-heading h1 {
     font-size: 1.1rem;
+  }
+
+  .topbar-heading .eyebrow {
+    font-size: 0.7rem;
+  }
+
+  .topbar-heading .sub {
+    font-size: 0.75rem;
   }
 
   .modal-box,
@@ -367,28 +382,36 @@
     gap: 0.2rem;
   }
 
+  .sidebar {
+    width: 96%;
+    padding: 8px 12px calc(10px + env(safe-area-inset-bottom));
+    border-radius: 20px !important;
+    bottom: 14px;
+  }
+
   .nav-link {
     font-size: 0.55rem;
-    padding: 4px 6px;
+    padding: 6px 8px;
+    border-radius: 12px;
   }
 
   .nav-link i {
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
 
   .nav-link span {
     font-size: 0.55rem;
   }
 
-  .sidebar {
-    padding: 6px 8px calc(8px + env(safe-area-inset-bottom));
-    border-radius: 16px 16px 0 0;
+  .icon-btn-circle {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
   }
 
-  .icon-btn-circle {
-    width: 30px;
-    height: 30px;
+  #addBtn {
     font-size: 0.75rem;
+    padding: 6px 12px;
   }
 
   .btn-primary,
@@ -396,11 +419,6 @@
   .btn-danger {
     font-size: 0.8rem;
     padding: 8px 14px;
-  }
-
-  #addBtn {
-    width: 100%;
-    justify-content: center;
   }
 
   .settings-card {
@@ -415,6 +433,15 @@
     flex-direction: column;
     gap: 0.3rem;
     align-items: center;
+  }
+
+  .main {
+    padding: 14px 10px 110px;
+  }
+
+  .footer {
+    padding: 14px 10px 110px;
+    font-size: 0.65rem;
   }
 }
 
