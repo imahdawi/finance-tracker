@@ -1,0 +1,130 @@
+/* ================================================================
+   settings.css — أنماط صفحة الإعدادات
+   ================================================================ */
+
+.settings-section { margin-bottom: 1.5rem; }
+.settings-section h2 {
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  border-right: 3px solid var(--primary);
+  padding-right: 0.6rem;
+}
+
+.settings-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.2rem 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.settings-row { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; }
+.settings-row.danger .settings-label span { color: var(--danger); }
+
+.settings-label { flex: 1; min-width: 0; }
+.settings-label i { margin-left: 0.4rem; width: 18px; color: var(--primary); font-size: 0.9rem; }
+[data-theme="dark"] .settings-label i { color: var(--primary-light); }
+.settings-label span { font-weight: 700; color: var(--ink); }
+.settings-desc { font-size: 0.8rem; color: var(--ink-soft); margin-top: 0.15rem; margin-right: 1.8rem; }
+
+.settings-control { display: flex; align-items: center; gap: 0.6rem; min-width: 190px; }
+.settings-control input { min-width: 100px; }
+
+.settings-divider { height: 1px; background: var(--border-light); margin: 1rem 0; }
+
+.settings-month {
+  margin-top: 0.8rem; padding-top: 0.8rem;
+  border-top: 1px solid var(--border-light);
+  color: var(--ink-soft); font-size: 0.8rem; text-align: center;
+}
+.settings-month strong { color: var(--primary); }
+[data-theme="dark"] .settings-month strong { color: var(--primary-light); }
+
+.sub-budgets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+}
+
+.sub-budget-item {
+  display: flex; flex-direction: column; gap: 0.2rem;
+  padding: 0.7rem 0.9rem;
+  background: var(--surface-sunken);
+  border-radius: var(--radius-sm);
+  border-right: 3px solid var(--primary);
+}
+.sub-budget-item label { font-weight: 700; color: var(--ink); font-size: 0.8rem; display: flex; align-items: center; gap: 0.4rem; }
+.sub-budget-item .budget-input { display: flex; align-items: center; gap: 0.4rem; }
+.sub-budget-item .budget-input input { flex: 1; padding: 0.35rem 0.5rem; font-size: 0.85rem; background: var(--surface); }
+.sub-budget-item .budget-input span { color: var(--ink-soft); font-size: 0.75rem; }
+
+.sub-budget-progress { margin-top: 0.2rem; }
+.sub-budget-progress .stats { display: flex; justify-content: space-between; font-size: 0.65rem; color: var(--ink-soft); }
+.sub-budget-progress .progress-bar { height: 4px; background: var(--surface-hover); border-radius: 4px; overflow: hidden; margin-top: 0.2rem; }
+.sub-budget-progress .progress-bar .fill { height: 100%; background: var(--success); border-radius: 4px; transition: width 0.3s ease; }
+.sub-budget-progress .progress-bar .fill.warning { background: var(--warning); }
+.sub-budget-progress .progress-bar .fill.danger { background: var(--danger); }
+
+.about-content { color: var(--ink-soft); line-height: 1.8; }
+.about-content p { margin-bottom: 0.3rem; }
+.about-content p strong { color: var(--ink); }
+.about-stats {
+  display: flex; gap: 1.5rem; margin-top: 0.8rem; padding-top: 0.8rem;
+  border-top: 1px solid var(--border-light); flex-wrap: wrap;
+}
+.about-stats span { font-weight: 700; color: var(--ink); font-size: 0.85rem; }
+
+@media (max-width: 768px) {
+  .settings-row { flex-direction: column; align-items: stretch; gap: 0.6rem; }
+  .settings-control { min-width: unset; width: 100%; flex-wrap: wrap; }
+  .settings-control input { min-width: unset; width: 100%; }
+  .settings-control .btn-primary, .settings-control .btn-secondary, .settings-control .btn-danger { width: 100%; }
+  .settings-desc { margin-right: 0; }
+  .sub-budgets-grid { grid-template-columns: 1fr 1fr; }
+  .about-stats { flex-direction: column; gap: 0.3rem; align-items: center; }
+}
+
+@media (max-width: 480px) {
+  .settings-card { padding: 0.9rem 1rem; }
+  .settings-section h2 { font-size: 0.9rem; }
+  .sub-budgets-grid { grid-template-columns: 1fr; }
+}
+
+.sub-budget-item.danger {
+    border-right-color: var(--danger);
+    background: var(--danger-tint);
+}
+
+.sub-budget-item.warning {
+    border-right-color: var(--warning);
+    background: var(--warning-tint);
+}
+
+.sub-budget-item .status-text {
+    font-size: 0.7rem;
+    font-weight: 700;
+    margin-top: 0.2rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+}
+
+.sub-budget-item .status-text.danger {
+    color: var(--danger);
+    background: rgba(192, 80, 58, 0.1);
+}
+
+.sub-budget-item .status-text.warning {
+    color: var(--accent-dark);
+    background: rgba(201, 154, 62, 0.1);
+}
+
+[data-theme="dark"] .sub-budget-item.danger {
+    background: rgba(224, 128, 100, 0.15);
+}
+
+[data-theme="dark"] .sub-budget-item.warning {
+    background: rgba(224, 183, 94, 0.15);
+}

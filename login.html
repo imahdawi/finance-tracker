@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - تحويش</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;800;900&family=Tajawal:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body class="auth-body">
+    <div class="login-container" id="loginContainer">
+        <div class="app-header">
+            <div class="app-icon">🏺</div>
+            <h1>تحويش</h1>
+            <p id="formTitle">تسجيل الدخول إلى حسابك</p>
+        </div>
+
+        <!-- ===== Login Form ===== -->
+        <div id="loginForm">
+            <div class="form-group">
+                <label><i class="fas fa-user"></i> اسم المستخدم</label>
+                <input type="text" id="username" placeholder="أدخل اسم المستخدم" autofocus>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-lock"></i> كلمة المرور</label>
+                <div class="password-wrapper">
+                    <input type="password" id="password" placeholder="أدخل كلمة المرور">
+                    <button class="toggle-password" type="button" onclick="togglePassword('password', this)">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+            <button id="loginBtn" class="btn-primary">
+                <i class="fas fa-sign-in-alt"></i> دخول
+            </button>
+            <div class="divider"><span>أو</span></div>
+            <div class="switch-row">
+                ليس لديك حساب؟ <span class="switch-link" id="showRegister">سجل الآن</span>
+            </div>
+            <div id="loginError" class="error-msg"></div>
+        </div>
+
+        <!-- ===== Register Form ===== -->
+        <div id="registerForm" style="display:none;">
+            <div class="form-group">
+                <label><i class="fas fa-user"></i> اسم المستخدم</label>
+                <input type="text" id="regUsername" placeholder="3 أحرف على الأقل">
+                <div class="hint-text"><i class="fas fa-info-circle"></i> 3 أحرف أو أكثر</div>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-lock"></i> كلمة المرور</label>
+                <div class="password-wrapper">
+                    <input type="password" id="regPassword" placeholder="8 أحرف على الأقل" oninput="checkPasswordStrength(this.value)">
+                    <button class="toggle-password" type="button" onclick="togglePassword('regPassword', this)">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+
+                <!-- ===== Password Strength + Actions ===== -->
+                <div class="password-strength" id="strengthContainer" style="display:none;">
+                    <div class="strength-bar">
+                        <div class="segment" id="seg1"></div>
+                        <div class="segment" id="seg2"></div>
+                        <div class="segment" id="seg3"></div>
+                        <div class="segment" id="seg4"></div>
+                    </div>
+                    <span class="strength-text" id="strengthText">ضعيف</span>
+
+                    <div class="password-actions">
+                        <button type="button" class="generate-btn" onclick="generateStrongPassword()">
+                            <i class="fas fa-sync-alt"></i> اقتراح
+                        </button>
+                        <button type="button" class="copy-btn" id="copyBtn" onclick="copyPassword()" style="display:none;">
+                            <i class="fas fa-copy"></i> نسخ
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ===== تذكير بحفظ كلمة المرور ===== -->
+                <div class="password-reminder" id="passwordReminder">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>⚠️ <strong>تذكر حفظ كلمة المرور!</strong> لن نتمكن من استعادتها إذا نسيتها</span>
+                </div>
+
+                <div class="password-suggestions" id="passwordSuggestions">
+                    <i class="fas fa-lightbulb"></i>
+                    <span id="suggestionText">كلمة مرور قوية: حروف كبيرة وصغيرة + أرقام + رموز</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-check-circle"></i> تأكيد كلمة المرور</label>
+                <div class="password-wrapper">
+                    <input type="password" id="regConfirmPassword" placeholder="أكد كلمة المرور">
+                    <button class="toggle-password" type="button" onclick="togglePassword('regConfirmPassword', this)">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+
+            <button id="registerBtn" class="btn-primary">
+                <i class="fas fa-user-plus"></i> إنشاء حساب
+            </button>
+            <div class="divider"><span>أو</span></div>
+            <div class="switch-row">
+                لديك حساب؟ <span class="switch-link" id="showLogin">سجل الدخول</span>
+            </div>
+            <div id="registerError" class="error-msg"></div>
+        </div>
+
+        <div class="footer">
+            <i class="fas fa-shield-alt"></i> بياناتك محفوظة محلياً
+        </div>
+    </div>
+
+    <script>
+        // ===== Toggle Password =====
+        function togglePassword(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'fas fa-eye-slash';
+            } else {
+                input.type = 'password';
+                icon.className = 'fas fa-eye';
+            }
+        }
+
+        // ================================================================
+        // ===== CHECK PASSWORD STRENGTH =====
+        // ================================================================
+        function checkPasswordStrength(password) {
+            const container = document.getElementById('strengthContainer');
+            const suggestions = document.getElementById('passwordSuggestions');
+            const suggestionText = document.getElementById('suggestionText');
+            const reminder = document.getElementById('passwordReminder');
+            const copyBtn = document.getElementById('copyBtn');
+
+            if (password.length === 0) {
+                container.style.display = 'none';
+                suggestions.classList.remove('show');
+                reminder.classList.remove('show');
+                copyBtn.style.display = 'none';
+                return;
+            }
+
+            container.style.display = 'flex';
+            copyBtn.style.display = 'inline-flex';
+
+            let score = 0;
+            const hasLower = /[a-z]/.test(password);
+            const hasUpper = /[A-Z]/.test(password);
+            const hasNumber = /[0-9]/.test(password);
+            const hasSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+            const length = password.length;
+
+            if (length >= 8) score++;
+            if (length >= 12) score++;
+            if (hasLower) score++;
+            if (hasUpper) score++;
+            if (hasNumber) score++;
+            if (hasSymbol) score++;
+
+            const maxScore = 7;
+            const percentage = Math.min((score / maxScore) * 100, 100);
+
+            let level, levelClass;
+
+            if (percentage < 30) {
+                level = 'ضعيف';
+                levelClass = 'weak';
+                suggestionText.textContent = '⚠️ كلمة المرور ضعيفة جداً! استخدم 8 أحرف على الأقل مع حروف وأرقام ورموز';
+                reminder.classList.remove('show');
+            } else if (percentage < 50) {
+                level = 'سهل';
+                levelClass = 'easy';
+                suggestionText.textContent = '📝 كلمة المرور سهلة. أضف حروف كبيرة وأرقام ورموز لزيادة القوة';
+                reminder.classList.remove('show');
+            } else if (percentage < 75) {
+                level = 'متوسط';
+                levelClass = 'medium';
+                suggestionText.textContent = '✅ كلمة مرور جيدة. أضف رموز مثل !@#$ لتصبح أقوى';
+                reminder.classList.remove('show');
+            } else {
+                level = 'قوي';
+                levelClass = 'strong';
+                suggestionText.textContent = '🔒 ممتاز! كلمة مرور قوية جداً';
+                reminder.classList.add('show');
+            }
+
+            // Update bar
+            const segments = ['seg1', 'seg2', 'seg3', 'seg4'];
+            const activeCount = Math.min(Math.ceil(percentage / 25), 4);
+
+            segments.forEach(function(id, index) {
+                const el = document.getElementById(id);
+                el.className = 'segment';
+                if (index < activeCount) {
+                    el.classList.add('active', levelClass);
+                }
+            });
+
+            // Update text
+            const textEl = document.getElementById('strengthText');
+            textEl.textContent = level;
+            textEl.className = 'strength-text ' + levelClass;
+
+            // Show suggestions if weak or easy
+            if (percentage < 50) {
+                suggestions.classList.add('show');
+            } else {
+                suggestions.classList.remove('show');
+            }
+        }
+
+        // ================================================================
+        // ===== GENERATE STRONG PASSWORD =====
+        // ================================================================
+        function generateStrongPassword() {
+            const lower = 'abcdefghijklmnopqrstuvwxyz';
+            const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const numbers = '0123456789';
+            const symbols = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+            const all = lower + upper + numbers + symbols;
+
+            let password = '';
+            password += lower[Math.floor(Math.random() * lower.length)];
+            password += upper[Math.floor(Math.random() * upper.length)];
+            password += numbers[Math.floor(Math.random() * numbers.length)];
+            password += symbols[Math.floor(Math.random() * symbols.length)];
+
+            for (let i = 4; i < 16; i++) {
+                password += all[Math.floor(Math.random() * all.length)];
+            }
+
+            password = password.split('').sort(function() {
+                return 0.5 - Math.random();
+            }).join('');
+
+            // ===== Fill password field =====
+            const passwordInput = document.getElementById('regPassword');
+            passwordInput.value = password;
+            checkPasswordStrength(password);
+
+            // ===== IMPORTANT: Auto-fill confirm password =====
+            const confirmInput = document.getElementById('regConfirmPassword');
+            confirmInput.value = password;
+
+            // ===== Show copy button =====
+            const copyBtn = document.getElementById('copyBtn');
+            copyBtn.style.display = 'inline-flex';
+            copyBtn.className = 'copy-btn';
+            copyBtn.innerHTML = '<i class="fas fa-copy"></i> نسخ';
+
+            // ===== Show reminder =====
+            document.getElementById('passwordReminder').classList.add('show');
+            document.getElementById('passwordSuggestions').classList.add('show');
+            document.getElementById('suggestionText').textContent = '🔑 تم إنشاء كلمة مرور قوية! تم تعبئة حقل التأكيد تلقائياً';
+
+            // ===== Focus on confirm field =====
+            confirmInput.focus();
+        }
+
+        // ================================================================
+        // ===== COPY PASSWORD =====
+        // ================================================================
+        function copyPassword() {
+            const password = document.getElementById('regPassword').value;
+            if (!password) return;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(password).then(function() {
+                    showCopySuccess();
+                }).catch(function() {
+                    fallbackCopy(password);
+                });
+            } else {
+                fallbackCopy(password);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showCopySuccess();
+            } catch (e) {
+                showToast('❌ فشل النسخ، حاول يدوياً', 'error');
+            }
+            document.body.removeChild(textarea);
+        }
+
+        function showCopySuccess() {
+            const copyBtn = document.getElementById('copyBtn');
+            copyBtn.className = 'copy-btn copied';
+            copyBtn.innerHTML = '<i class="fas fa-check"></i> تم النسخ';
+            setTimeout(function() {
+                copyBtn.className = 'copy-btn';
+                copyBtn.innerHTML = '<i class="fas fa-copy"></i> نسخ';
+            }, 2000);
+        }
+
+        // ===== Enter Key Support =====
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('password').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') document.getElementById('loginBtn').click();
+            });
+            document.getElementById('regConfirmPassword').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') document.getElementById('registerBtn').click();
+            });
+            document.getElementById('regUsername').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') document.getElementById('regPassword').focus();
+            });
+            document.getElementById('regPassword').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') document.getElementById('regConfirmPassword').focus();
+            });
+        });
+    </script>
+
+    <div id="toastContainer"></div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

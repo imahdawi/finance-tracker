@@ -1,0 +1,46 @@
+/* ================================================================
+   dashboard.css — لوحة التحكم (الرئيسية)
+   ================================================================ */
+
+.budget-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.budget-card-head .section-title { margin-bottom: 0; }
+
+.budget-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  flex-wrap: wrap;
+}
+
+.budget-meta strong { color: var(--ink); font-family: var(--font-display); }
+
+#budgetStatus { font-weight: 700; font-size: 0.82rem; color: var(--ink-soft); }
+
+.saving-goal-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.saving-goal-controls input { width: 150px; }
+
+@media (max-width: 880px) {
+  .saving-goal-controls { width: 100%; }
+  .saving-goal-controls input { flex: 1; min-width: 0; width: auto; }
+}
+
+@media (max-width: 480px) {
+  .saving-goal-controls { flex-direction: column; align-items: stretch; }
+  .saving-goal-controls input { width: 100%; }
+}

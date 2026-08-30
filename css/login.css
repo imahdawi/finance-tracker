@@ -1,0 +1,194 @@
+/* ================================================================
+   login.css — تسجيل الدخول / إنشاء حساب
+   نفس هوية "تحويش" (يعتمد على متغيرات style.css)
+   ================================================================ */
+
+body.auth-body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: radial-gradient(circle at 15% 15%, var(--primary-tint), var(--bg) 55%);
+}
+
+.login-container {
+  max-width: 400px;
+  width: 100%;
+  padding: 2.2rem 1.9rem;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+  transition: box-shadow 0.25s ease;
+}
+
+.app-header { text-align: center; margin-bottom: 1.8rem; }
+
+.app-icon { font-size: 2.6rem; margin-bottom: 0.3rem; }
+
+.app-header h1 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.app-header p { color: var(--ink-soft); font-size: 0.9rem; font-weight: 500; margin-top: 2px; }
+
+.form-group { margin-bottom: 1rem; }
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--ink-soft);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.form-group label i { margin-left: 0.4rem; color: var(--primary); width: 18px; }
+[data-theme="dark"] .form-group label i { color: var(--primary-light); }
+
+.form-group input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-sunken);
+  color: var(--ink);
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  transition: all 0.2s ease;
+  outline: none;
+}
+.form-group input:focus {
+  border-color: var(--primary);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px var(--primary-tint);
+}
+.form-group input::placeholder { color: var(--muted); font-size: 0.85rem; }
+
+.hint-text { font-size: 0.7rem; color: var(--muted); margin-top: 0.25rem; }
+.hint-text i { color: var(--accent-dark); margin-left: 0.2rem; }
+
+.password-wrapper { position: relative; }
+.password-wrapper input { padding-left: 2.8rem; }
+
+.toggle-password {
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; color: var(--muted);
+  cursor: pointer; font-size: 0.95rem; padding: 4px 6px; border-radius: 8px;
+  transition: all 0.2s ease;
+}
+.toggle-password:hover { color: var(--primary); background: var(--primary-tint); }
+
+/* ===== قوة كلمة المرور ===== */
+.password-strength { margin-top: 0.5rem; display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+
+.strength-bar { flex: 1; height: 4px; border-radius: 2px; overflow: hidden; display: flex; gap: 3px; min-width: 80px; }
+.strength-bar .segment { flex: 1; height: 100%; background: var(--border); transition: all 0.4s ease; border-radius: 2px; }
+
+.strength-bar .segment.active.weak { background: var(--danger); }
+.strength-bar .segment.active.easy { background: var(--accent); }
+.strength-bar .segment.active.medium { background: var(--accent-light); }
+.strength-bar .segment.active.strong { background: var(--success); }
+
+.strength-text { font-size: 0.7rem; font-weight: 700; min-width: 35px; color: var(--muted); }
+.strength-text.weak { color: var(--danger); }
+.strength-text.easy { color: var(--accent-dark); }
+.strength-text.medium { color: var(--accent-dark); }
+.strength-text.strong { color: var(--success); }
+
+.password-actions { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+
+.generate-btn {
+  background: none; border: 1.5px dashed var(--primary); color: var(--primary);
+  padding: 0.22rem 0.7rem; border-radius: 6px; cursor: pointer;
+  font-size: 0.65rem; font-family: var(--font-body); font-weight: 700;
+  transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 0.3rem; white-space: nowrap;
+}
+.generate-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+[data-theme="dark"] .generate-btn { color: var(--primary-light); border-color: var(--primary-light); }
+[data-theme="dark"] .generate-btn:hover { background: var(--primary-light); color: var(--primary-dark); }
+
+.copy-btn {
+  background: none; border: 1.5px solid var(--border); color: var(--ink-soft);
+  padding: 0.22rem 0.7rem; border-radius: 6px; cursor: pointer;
+  font-size: 0.65rem; font-family: var(--font-body); font-weight: 700;
+  transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 0.3rem; white-space: nowrap;
+}
+.copy-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-tint); }
+.copy-btn.copied { border-color: var(--success); color: var(--success); background: var(--success-tint); }
+
+.password-reminder {
+  margin-top: 0.4rem; padding: 0.45rem 0.7rem;
+  background: var(--warning-tint); border-radius: 8px;
+  border-right: 3px solid var(--accent); font-size: 0.75rem; color: var(--accent-dark);
+  display: none;
+}
+.password-reminder.show { display: block; animation: fadeSlide 0.3s ease; }
+.password-reminder i { margin-left: 0.3rem; color: var(--accent); }
+.password-reminder strong { color: var(--accent-dark); }
+
+@keyframes fadeSlide { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
+.password-suggestions {
+  margin-top: 0.3rem; padding: 0.45rem 0.7rem;
+  background: var(--success-tint); border-radius: 8px; font-size: 0.75rem; color: var(--success);
+  display: none; border-right: 3px solid var(--success);
+}
+.password-suggestions.show { display: block; }
+.password-suggestions i { margin-left: 0.3rem; }
+
+.btn-primary {
+  width: 100%; padding: 0.78rem;
+  background: var(--primary); color: #fff; border: none; border-radius: var(--radius-sm);
+  font-size: 0.95rem; font-weight: 700; font-family: var(--font-body);
+  cursor: pointer; transition: all 0.2s ease;
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  margin-top: 0.3rem;
+}
+.btn-primary:hover { background: var(--primary-light); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.btn-primary:active { transform: translateY(0); }
+
+.divider { margin: 1.2rem 0; border-top: 1px solid var(--border); position: relative; }
+.divider span {
+  position: absolute; top: -9px; left: 50%; transform: translateX(-50%);
+  background: var(--surface); padding: 0 0.8rem; color: var(--muted); font-size: 0.75rem; font-weight: 700;
+}
+
+.switch-row { text-align: center; font-size: 0.9rem; color: var(--ink-soft); margin-top: 0.3rem; }
+.switch-link { color: var(--primary); cursor: pointer; font-weight: 700; transition: all 0.2s ease; }
+.switch-link:hover { color: var(--primary-light); text-decoration: underline; }
+[data-theme="dark"] .switch-link { color: var(--primary-light); }
+
+.error-msg { margin-top: 0.6rem; font-size: 0.85rem; min-height: 1.3rem; font-weight: 700; }
+.error-msg:not(:empty) {
+  padding: 0.45rem 0.7rem; border-radius: 8px;
+  background: var(--danger-tint); color: var(--danger); border-right: 3px solid var(--danger);
+}
+.error-msg.success:not(:empty) { background: var(--success-tint); color: var(--success); border-right-color: var(--success); }
+
+.footer { text-align: center; margin-top: 1.2rem; color: var(--muted); font-size: 0.72rem; padding: 0; }
+.footer i { color: var(--primary); margin-left: 0.2rem; }
+[data-theme="dark"] .footer i { color: var(--primary-light); }
+
+/* ===== الوضع الليلي التلقائي حسب نظام الجهاز ===== */
+@media (prefers-color-scheme: dark) {
+  body.auth-body:not([data-theme="light"]) {
+    --bg: #0F1813; --surface: #16211B; --surface-sunken: #1C2921; --surface-hover: #22312A;
+    --ink: #EDF3EE; --ink-soft: #B7C6BC; --muted: #7C8D82; --border: #263329; --border-light: #202C25;
+    --primary: #2E8F63; --primary-light: #45AC7E; --primary-dark: #1D6F4A; --primary-tint: #17281F;
+    --accent: #E0B75E; --accent-light: #EDCB80; --accent-dark: #C99A3E; --accent-tint: #2A2417;
+    --danger: #E08064; --danger-tint: #2E1D18; --success: #4FBB84; --success-tint: #16281F; --warning-tint: #2A2417;
+  }
+}
+
+@media (max-width: 420px) {
+  .login-container { padding: 1.6rem 1.1rem; border-radius: var(--radius-md); }
+  .app-header h1 { font-size: 1.35rem; }
+  .app-icon { font-size: 2.2rem; }
+  .form-group input { font-size: 0.85rem; padding: 0.6rem 0.8rem; }
+  .btn-primary { font-size: 0.85rem; padding: 0.65rem; }
+  .password-strength { gap: 0.4rem; }
+  .strength-bar { min-width: 60px; }
+  .password-actions { gap: 0.3rem; }
+}

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحويش - الإعدادات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/settings.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<div class="app-shell">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <span class="jar-icon">🏺</span>
+            <span>تحويش</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-link">
+                <i class="fas fa-chart-pie"></i>
+                <span>الرئيسية</span>
+            </a>
+            <a href="transactions.html" class="nav-link">
+                <i class="fas fa-list-ul"></i>
+                <span>العمليات</span>
+            </a>
+            <a href="analytics.html" class="nav-link">
+                <i class="fas fa-chart-bar"></i>
+                <span>التحليلات</span>
+            </a>
+            <a href="settings.html" class="nav-link active">
+                <i class="fas fa-cog"></i>
+                <span>الإعدادات</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="sidebar-user">
+                <div class="avatar" id="userAvatar">م</div>
+                <div class="meta">
+                    <div class="name" id="userName">مستخدم</div>
+                    <div class="role">حساب شخصي</div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ===== MAIN ===== -->
+    <main class="main">
+        <div class="topbar">
+            <div class="topbar-heading header-title">
+                <div>
+                    <span class="eyebrow">الإعدادات</span>
+                    <h1>الإعدادات</h1>
+                </div>
+                <button class="info-btn" id="infoBtn" aria-label="شرح الصفحة">
+                    <i class="fas fa-info-circle"></i>
+                </button>
+            </div>
+            <div class="topbar-actions">
+                <button id="themeToggle" class="icon-btn-circle" title="الوضع الليلي"><i class="fas fa-moon"></i></button>
+                <button id="logoutBtn" class="icon-btn-circle danger" title="تسجيل الخروج"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </div>
+
+        <div class="info-popover" id="infoPopover">
+            <div class="popover-header">
+                <h3>⚙️ شرح الإعدادات</h3>
+                <button class="popover-close" id="popoverClose">&times;</button>
+            </div>
+            <div class="popover-body">
+                <div class="info-item">
+                    <span class="info-icon">💰</span>
+                    <div>
+                        <strong>الميزانية الشهرية</strong>
+                        <p>تتغير تلقائياً مع كل شهر جديد بنفس المبلغ</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">📊</span>
+                    <div>
+                        <strong>الميزانيات الفرعية</strong>
+                        <p>حدد ميزانية لكل تصنيف على حدة (طعام، مواصلات، الخ)</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">📥</span>
+                    <div>
+                        <strong>تصدير البيانات</strong>
+                        <p>تحميل ملف CSV بكل العمليات</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">📤</span>
+                    <div>
+                        <strong>استيراد البيانات</strong>
+                        <p>رفع ملف CSV وإضافة العمليات</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">🗑️</span>
+                    <div>
+                        <strong>مسح البيانات</strong>
+                        <p>حذف كل شيء نهائياً</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== الميزانية الرئيسية ===== -->
+        <div class="settings-section">
+            <h2>الميزانية الرئيسية</h2>
+            <div class="settings-card">
+                <div class="settings-row">
+                    <div class="settings-label">
+                        <i class="fas fa-bullseye"></i>
+                        <span>الميزانية الشهرية</span>
+                        <p class="settings-desc">تتغير تلقائياً مع كل شهر جديد</p>
+                    </div>
+                    <div class="settings-control">
+                        <input type="number" id="budgetAmount" min="0" step="100">
+                        <button id="saveBudget" class="btn-primary">حفظ</button>
+                    </div>
+                </div>
+                <div class="settings-month" id="currentMonth">
+                    الشهر الحالي: أغسطس 2026
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== الميزانيات الفرعية ===== -->
+        <div class="settings-section">
+            <h2>الميزانيات الفرعية</h2>
+            <div class="settings-card">
+                <p class="settings-desc">حدد ميزانية لكل تصنيف على حدة</p>
+                <div class="sub-budgets-grid" id="subBudgetsGrid"></div>
+                <button id="saveSubBudgets" class="btn-primary" style="margin-top:1rem; width:100%; justify-content:center;">
+                    <i class="fas fa-save"></i> حفظ الميزانيات الفرعية
+                </button>
+            </div>
+        </div>
+
+        <!-- ===== إدارة البيانات ===== -->
+        <div class="settings-section">
+            <h2>إدارة البيانات</h2>
+            <div class="settings-card">
+                <div class="settings-row">
+                    <div class="settings-label">
+                        <i class="fas fa-file-export"></i>
+                        <span>تصدير البيانات</span>
+                        <p class="settings-desc">تصدير إلى CSV</p>
+                    </div>
+                    <div class="settings-control">
+                        <button id="exportData" class="btn-secondary"><i class="fas fa-download"></i> تصدير</button>
+                    </div>
+                </div>
+                <div class="settings-divider"></div>
+                <div class="settings-row">
+                    <div class="settings-label">
+                        <i class="fas fa-file-import"></i>
+                        <span>استيراد البيانات</span>
+                        <p class="settings-desc">استيراد من CSV</p>
+                    </div>
+                    <div class="settings-control">
+                        <input type="file" id="importFile" accept=".csv" style="display:none">
+                        <button id="importData" class="btn-secondary"><i class="fas fa-upload"></i> استيراد</button>
+                    </div>
+                </div>
+                <div class="settings-divider"></div>
+                <div class="settings-row danger">
+                    <div class="settings-label">
+                        <i class="fas fa-trash-alt"></i>
+                        <span>مسح جميع البيانات</span>
+                        <p class="settings-desc">حذف كل شيء نهائياً</p>
+                    </div>
+                    <div class="settings-control">
+                        <button id="clearData" class="btn-danger"><i class="fas fa-trash"></i> مسح الكل</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== حول التطبيق ===== -->
+        <div class="settings-section">
+            <h2>حول التطبيق</h2>
+            <div class="settings-card">
+                <div class="about-content">
+                    <p><strong>تحويش</strong> v1.0</p>
+                    <p>إدارة المصروفات الشخصية مع ميزانيات فرعية</p>
+                    <div class="about-stats">
+                        <span id="totalTransactions">0 عملية</span>
+                        <span id="totalIncome">0.00 ج.م دخل</span>
+                        <span id="totalExpenses">0.00 ج.م مصروفات</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Clear Modal -->
+<div id="clearModal" class="modal-overlay">
+    <div class="modal-box delete-modal">
+        <div class="modal-header">
+            <h2>تأكيد المسح</h2>
+            <button id="clearModalCloseBtn" class="modal-close">&times;</button>
+        </div>
+        <div class="delete-message">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>هل أنت متأكد من مسح جميع البيانات؟</p>
+            <p class="delete-details" id="clearDetails"></p>
+        </div>
+        <div class="delete-actions">
+            <button id="cancelClear" class="btn btn-secondary">إلغاء</button>
+            <button id="confirmClear" class="btn btn-danger">مسح الكل</button>
+        </div>
+    </div>
+</div>
+
+<div id="toastContainer"></div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+</html>

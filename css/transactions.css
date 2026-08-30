@@ -1,0 +1,200 @@
+.filters-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.filters-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 0.8rem; }
+
+.filter-group {
+  display: flex; align-items: center;
+  background: var(--surface-sunken);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  transition: var(--transition-base);
+}
+.filter-group:focus-within { border-color: var(--primary); }
+.filter-group i { padding: 0 0.6rem; color: var(--muted); font-size: 0.85rem; }
+.filter-group input, .filter-group select {
+  flex: 1; padding: 0.5rem 0.6rem 0.5rem 0.4rem; border: none; background: transparent;
+  color: var(--ink); font-size: 0.85rem; outline: none;
+}
+.filter-group select { cursor: pointer; }
+
+#customDateRange {
+  display: flex; align-items: center; gap: 0.8rem;
+  margin-top: 0.8rem; padding-top: 0.8rem;
+  border-top: 1px solid var(--border-light); flex-wrap: wrap;
+}
+#customDateRange input { width: auto; }
+
+.filters-stats {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 0.8rem; padding-top: 0.8rem;
+  border-top: 1px solid var(--border-light);
+  color: var(--ink-soft); font-size: 0.85rem; flex-wrap: wrap; gap: 0.5rem;
+}
+.stats-left span, .stats-right span { font-weight: 600; }
+#filteredTotal { color: var(--primary); font-weight: 800; }
+[data-theme="dark"] #filteredTotal { color: var(--primary-light); }
+#filteredDetails { color: var(--muted); font-weight: 400; font-size: 0.8rem; }
+
+.transactions-list {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 1.2rem;
+  min-height: 150px;
+}
+
+.transaction-item-full {
+  display: grid;
+  grid-template-columns: 38px 1fr auto auto;
+  gap: 0.8rem;
+  align-items: center;
+  padding: 0.7rem 0.4rem;
+  border-bottom: 1px solid var(--border-light);
+  transition: var(--transition-base);
+}
+.transaction-item-full:last-child { border-bottom: none; }
+.transaction-item-full:hover { background: var(--surface-sunken); border-radius: var(--radius-sm); }
+
+.transaction-item-full .meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--surface-sunken);
+    color: var(--ink-soft);
+}
+
+.transaction-item-full .meta span i.fa-utensils { color: #FF6B6B; }
+.transaction-item-full .meta span i.fa-car { color: #4ECDC4; }
+.transaction-item-full .meta span i.fa-graduation-cap { color: #45B7D1; }
+.transaction-item-full .meta span i.fa-gamepad { color: #96CEB4; }
+.transaction-item-full .meta span i.fa-shopping-bag { color: #FFEAA7; }
+.transaction-item-full .meta span i.fa-file-invoice { color: #FF9800; }
+.transaction-item-full .meta span i.fa-heartbeat { color: #E91E63; }
+.transaction-item-full .meta span i.fa-home { color: #DDA0DD; }
+.transaction-item-full .meta span i.fa-wallet { color: #00C853; }
+
+.transaction-item-full .meta span:has(.fa-utensils) { background: rgba(255, 107, 107, 0.12); color: #FF6B6B; }
+.transaction-item-full .meta span:has(.fa-car) { background: rgba(78, 205, 196, 0.12); color: #4ECDC4; }
+.transaction-item-full .meta span:has(.fa-graduation-cap) { background: rgba(69, 183, 209, 0.12); color: #45B7D1; }
+.transaction-item-full .meta span:has(.fa-gamepad) { background: rgba(150, 206, 180, 0.12); color: #2d7a6b; }
+.transaction-item-full .meta span:has(.fa-shopping-bag) { background: rgba(255, 234, 167, 0.25); color: #b7950b; }
+.transaction-item-full .meta span:has(.fa-file-invoice) { background: rgba(255, 152, 0, 0.12); color: #FF9800; }
+.transaction-item-full .meta span:has(.fa-heartbeat) { background: rgba(233, 30, 99, 0.12); color: #E91E63; }
+.transaction-item-full .meta span:has(.fa-home) { background: rgba(221, 160, 221, 0.15); color: #9b59b6; }
+.transaction-item-full .meta span:has(.fa-wallet) { background: rgba(0, 200, 83, 0.12); color: #00C853; }
+
+.transaction-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.transaction-icon.income {
+    background: rgba(0, 200, 83, 0.15);
+    color: #00C853;
+}
+
+.transaction-icon.expense {
+    background: rgba(255, 107, 107, 0.15);
+    color: #FF6B6B;
+}
+
+.transaction-item-full .meta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 3px;
+}
+
+.transaction-item-full .meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 2px 10px 2px 8px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.transaction-amount {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.05rem;
+    white-space: nowrap;
+}
+
+.transaction-amount.income {
+    color: #00C853;
+}
+
+.transaction-amount.expense {
+    color: #FF6B6B;
+}
+
+#transactionForm select {
+    width: 100%;
+    padding: 10px 12px 10px 34px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface-sunken);
+    font-size: 0.9rem;
+    color: var(--ink);
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+#transactionForm select:focus {
+    border-color: var(--primary);
+    background-color: var(--surface);
+    outline: none;
+    box-shadow: 0 0 0 3px var(--primary-tint);
+}
+
+#transactionForm select option {
+    background: var(--surface);
+    color: var(--ink);
+    padding: 8px;
+}
+
+[data-theme="dark"] #transactionForm select option {
+    background: #16211B;
+    color: #EDF3EE;
+}
+
+@media (max-width: 1024px) {
+  .filters-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .filters-grid { grid-template-columns: 1fr; gap: 0.5rem; }
+  .filters-section { padding: 0.9rem 1rem; }
+  .transaction-item-full { grid-template-columns: 1fr; gap: 0.4rem; padding: 0.6rem; }
+  .transaction-actions { justify-self: end; }
+  .filters-stats { flex-direction: column; text-align: center; gap: 0.3rem; }
+  .stats-right { justify-content: center; gap: 0.6rem; flex-wrap: wrap; }
+}
+
+@media (max-width: 480px) {
+  .filters-section { padding: 0.7rem 0.9rem; }
+  .transaction-item-full { padding: 0.5rem; }
+  .transaction-info .title { font-size: 0.85rem; }
+  .transaction-amount { font-size: 0.9rem; }
+  .stats-right { flex-direction: column; gap: 0.2rem; }
+}

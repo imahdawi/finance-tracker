@@ -1,0 +1,49 @@
+/* ================================================================
+   responsive.css — لمسات تجاوب إضافية مشتركة بين الصفحات + الطباعة
+   ================================================================ */
+
+@media (max-width: 768px) {
+  .page-header,
+  .header-title { flex-wrap: wrap; }
+
+  .icon-btn-circle { width: 34px; height: 34px; font-size: 0.85rem; }
+
+  .btn-primary, .btn-secondary, .btn-danger {
+    font-size: 0.85rem;
+  }
+
+  #addBtn { width: 100%; justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  .topbar-actions { width: 100%; }
+  .info-popover { max-width: 92%; }
+}
+
+/* ===== الطباعة ===== */
+@media print {
+  .sidebar,
+  .footer,
+  .topbar-actions,
+  .period-selector,
+  #addBtn,
+  #toastContainer,
+  .info-btn,
+  .info-popover,
+  .popover-overlay {
+    display: none !important;
+  }
+
+  .app-shell { display: block; }
+  .main { padding: 0; }
+
+  body { background: #fff !important; color: #000 !important; }
+
+  .card, .stat-card, .settings-card, .chart-card, .filters-section, .transactions-list {
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+    break-inside: avoid;
+  }
+
+  .chart-container { height: 200px !important; }
+}

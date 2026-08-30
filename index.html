@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تحويش - الرئيسية</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+<div class="app-shell">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <span class="jar-icon">🏺</span>
+            <span>تحويش</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-link active">
+                <i class="fas fa-chart-pie"></i>
+                <span>الرئيسية</span>
+            </a>
+            <a href="transactions.html" class="nav-link">
+                <i class="fas fa-list-ul"></i>
+                <span>العمليات</span>
+            </a>
+            <a href="analytics.html" class="nav-link">
+                <i class="fas fa-chart-bar"></i>
+                <span>التحليلات</span>
+            </a>
+            <a href="settings.html" class="nav-link">
+                <i class="fas fa-cog"></i>
+                <span>الإعدادات</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user">
+                <div class="avatar" id="userAvatar">م</div>
+                <div class="meta">
+                    <div class="name" id="userName">مستخدم</div>
+                    <div class="role">حساب شخصي</div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ===== MAIN ===== -->
+    <main class="main">
+        <div class="topbar">
+            <div class="topbar-heading">
+                <span class="eyebrow">نظرة عامة</span>
+                <h1>لوحة التحكم</h1>
+                <p class="sub">مرحباً بك في منصة تحويش لإدارة مدخراتك</p>
+            </div>
+            <div class="topbar-actions">
+                <button id="addBtn" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> إضافة عملية
+                </button>
+                <button id="themeToggle" class="icon-btn-circle" title="الوضع الليلي"><i class="fas fa-moon"></i></button>
+                <button id="logoutBtn" class="icon-btn-circle danger" title="تسجيل الخروج"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </div>
+
+        <!-- ===== STATS ===== -->
+        <div class="grid-stats">
+            <div class="stat-card balance">
+                <div class="label">الرصيد الحالي</div>
+                <div class="value" id="balance">0.00 ج.م</div>
+            </div>
+            <div class="stat-card income">
+                <div class="label">إجمالي الدخل (هذا الشهر)</div>
+                <div class="value" id="totalIncome">0.00 ج.م</div>
+            </div>
+            <div class="stat-card expense">
+                <div class="label">إجمالي المصروفات (هذا الشهر)</div>
+                <div class="value" id="totalExpenses">0.00 ج.م</div>
+            </div>
+            <div class="stat-card savings">
+                <div class="label">هدف التحويش</div>
+                <div class="value" id="savingGoalDisplay">0.00 ج.م</div>
+                <div class="delta" id="savingProgress">0%</div>
+            </div>
+        </div>
+
+        <!-- ===== BUDGET PROGRESS ===== -->
+        <div class="card" style="margin-bottom:20px;">
+            <div class="budget-card-head">
+                <div class="section-title">
+                    <span>📊 تقدم الميزانية</span>
+                </div>
+                <div class="budget-meta">
+                    <span>الميزانية الشهرية: <strong id="monthlyBudget">0.00 ج.م</strong></span>
+                    <span id="budgetStatus">المتبقي: 0.00 ج.م</span>
+                </div>
+            </div>
+            <div class="budget-bar">
+                <div id="budgetProgress" style="width:0%;"></div>
+            </div>
+        </div>
+
+        <!-- ===== TWO COL ===== -->
+        <div class="two-col">
+            <!-- Categories -->
+            <div class="card">
+                <div class="section-title">
+                    <span>📂 المصروفات حسب التصنيف</span>
+                </div>
+                <div id="categoryOverview">
+                    <div class="empty-state">
+                        <p>لا توجد مصروفات هذا الشهر</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Transactions -->
+            <div class="card">
+                <div class="section-title">
+                    <span>🔄 أحدث العمليات</span>
+                    <a href="transactions.html" class="link">عرض الكل</a>
+                </div>
+                <div id="recentTransactions">
+                    <div class="empty-state">
+                        <p>لا توجد عمليات</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SAVING GOAL ===== -->
+        <div class="card" style="margin-top:20px;">
+            <div class="section-title">
+                <span>🏺 هدف التحويش</span>
+                <div class="saving-goal-controls">
+                    <input type="number" id="savingGoalInput" class="input" placeholder="حدد هدفك">
+                    <button id="setSavingGoalBtn" class="btn btn-accent btn-sm">تحديد</button>
+                </div>
+            </div>
+            <div class="jar-goal-card">
+                <div class="jar-wrap">
+                    <div class="jar-neck"></div>
+                    <div class="jar-body">
+                        <div class="jar-fill" id="savingJarFill" style="height:0%;"></div>
+                        <div class="jar-pct" id="savingJarPercent">0%</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="goal-name" id="savingGoalName">هدف التحويش</div>
+                    <div class="goal-meta">
+                        <span id="savingCurrent">0.00 ج.م</span> /
+                        <span id="savingTarget">0.00 ج.م</span>
+                    </div>
+                </div>
+                <div class="goal-progress-bar" style="width:100%;">
+                    <div id="savingGoalBar" style="width:0%;"></div>
+                </div>
+                <div id="savingGoalStatus" style="font-size:0.85rem; color:var(--ink-soft);">حدد هدفاً للبدء</div>
+                <div class="goal-meta">المتبقي للهدف: <strong id="savingRemaining" style="color:var(--ink);">0.00 ج.م</strong></div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div id="toastContainer"></div>
+
+<!-- ===== MODALS ===== -->
+<div id="transactionModal" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3 id="modalTitle">إضافة عملية</h3>
+            <button class="modal-close" id="closeModalBtn">&times;</button>
+        </div>
+        <form id="transactionForm">
+            <div class="type-toggle">
+                <label class="toggle-option income">
+                    <input type="radio" name="type" value="income" id="incomeRadio">
+                    <span>💰 دخل</span>
+                </label>
+                <label class="toggle-option expense">
+                    <input type="radio" name="type" value="expense" id="expenseRadio" checked>
+                    <span>💸 مصروف</span>
+                </label>
+            </div>
+            <input type="hidden" id="editId" />
+
+            <div class="form-group">
+                <label>المبلغ</label>
+                <input type="number" id="amount" class="input" step="0.01" min="0.01" placeholder="0.00" required />
+            </div>
+
+            <div class="form-group" id="categoryGroup">
+                <label>التصنيف</label>
+                <select id="category" class="input">
+                    <option value="food">طعام</option>
+                    <option value="transport">مواصلات</option>
+                    <option value="education">تعليم</option>
+                    <option value="entertainment">ترفيه</option>
+                    <option value="shopping">تسوق</option>
+                    <option value="bills">فواتير</option>
+                    <option value="health">صحة</option>
+                    <option value="other">أخرى</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>الوصف</label>
+                <input type="text" id="description" class="input" placeholder="مثال: غداء..." maxlength="100" />
+            </div>
+
+            <div class="form-group">
+                <label>التاريخ</label>
+                <input type="date" id="date" class="input" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">
+                <i class="fas fa-save"></i> <span id="submitButtonText">إضافة</span>
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- ===== DELETE MODAL ===== -->
+<div id="deleteModal" class="modal-overlay">
+    <div class="modal-box" style="max-width:360px; text-align:center;">
+        <div class="modal-header">
+            <h3>تأكيد الحذف</h3>
+            <button class="modal-close" id="deleteModalCloseBtn">&times;</button>
+        </div>
+        <div style="padding:16px 0;">
+            <i class="fas fa-exclamation-triangle" style="font-size:2.5rem; color:var(--danger);"></i>
+            <p style="margin:12px 0; color:var(--ink-soft);">هل أنت متأكد من حذف هذه العملية؟</p>
+            <p style="font-weight:700;" id="deleteDetails"></p>
+        </div>
+        <div style="display:flex; gap:8px; justify-content:center;">
+            <button id="cancelDelete" class="btn btn-ghost">إلغاء</button>
+            <button id="confirmDelete" class="btn btn-danger-outline">حذف</button>
+        </div>
+    </div>
+</div>
+
+<script src="js/storage.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/dashboard.js"></script>
+
+</body>
+</html>
