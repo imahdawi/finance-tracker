@@ -647,18 +647,8 @@ select option {
 .info-item strong { display: block; font-size: 0.88rem; margin-bottom: 2px; }
 .info-item p { font-size: 0.8rem; color: var(--ink-soft); line-height: 1.5; }
 
-.footer {
-  text-align: center;
-  padding: 18px 12px 90px;
-  color: var(--muted);
-  font-size: 0.75rem;
-}
-.footer p { margin: 2px 0; }
-.footer strong { color: var(--ink-soft); }
-.footer-credit { opacity: 0.8; }
-
 /* ================================================================
-   تحسينات الموبايل للـ Sidebar و الأزرار
+   تحسينات الموبايل للـ Sidebar - طائر صغير في النص
    ================================================================ */
 
 @media (max-width: 880px) {
@@ -666,25 +656,26 @@ select option {
 
   .sidebar {
     position: fixed;
-    bottom: 20px;
+    bottom: 24px;
     left: 50%;
     transform: translateX(-50%);
-    width: 92%;
-    max-width: 500px;
+    width: auto; /* ===== مش واخد عرض كامل ===== */
+    max-width: 420px;
+    min-width: 280px;
     height: auto;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
-    padding: 10px 16px calc(12px + env(safe-area-inset-bottom));
+    justify-content: center;
+    padding: 8px 16px calc(10px + env(safe-area-inset-bottom));
     gap: 4px;
     z-index: 100;
     background: var(--primary);
     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35);
     border-left: none;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 24px !important;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    border-radius: 30px !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     transition: all 0.3s ease;
   }
 
@@ -694,38 +685,38 @@ select option {
     border-top: 1px solid rgba(255, 255, 255, 0.06);
   }
 
-  .sidebar-brand,
-  .sidebar-footer {
+  .sidebar-brand{
     display: none;
   }
 
   .sidebar-nav {
     flex-direction: row;
     width: 100%;
-    gap: 4px;
-    justify-content: space-around;
+    gap: 2px;
+    justify-content: center;
   }
 
   .nav-link {
     flex-direction: column;
-    gap: 2px;
-    font-size: 0.6rem;
-    padding: 8px 12px;
+    gap: 1px;
+    font-size: 0.55rem;
+    padding: 6px 10px;
     flex: 1;
     text-align: center;
-    border-radius: 14px;
+    border-radius: 16px;
     color: #C9D9CF;
     transition: all 0.25s ease;
+    min-width: 48px;
   }
 
   .nav-link span {
     display: block;
-    font-size: 0.6rem;
+    font-size: 0.5rem;
     font-weight: 500;
   }
 
   .nav-link i {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     opacity: 0.8;
     margin: 0;
   }
@@ -733,7 +724,7 @@ select option {
   .nav-link.active {
     background: var(--accent);
     color: var(--primary-dark);
-    border-radius: 14px;
+    border-radius: 16px;
     transform: scale(1.02);
   }
 
@@ -744,11 +735,12 @@ select option {
   .nav-link:hover {
     background: rgba(255, 255, 255, 0.1);
     color: #fff;
-    border-radius: 14px;
+    border-radius: 16px;
   }
 
+  /* ===== باقي التعديلات ===== */
   .main {
-    padding: 18px 14px 120px;
+    padding: 18px 14px 100px;
   }
 
   .topbar {
@@ -756,85 +748,97 @@ select option {
     align-items: center !important;
     justify-content: space-between !important;
     text-align: right !important;
+    gap: 8px;
   }
 
   .topbar-heading {
     text-align: right !important;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .topbar-heading h1 {
+    font-size: 1.1rem;
+  }
+
+  .topbar-heading .eyebrow {
+    font-size: 0.65rem;
+  }
+
+  .topbar-heading .sub {
+    font-size: 0.7rem;
   }
 
   .topbar-actions {
     justify-content: flex-end !important;
-  }
-
-  .topbar h1 {
-    font-size: 1.2rem;
+    flex-shrink: 0;
+    gap: 4px;
   }
 
   .icon-btn-circle {
-    width: 36px;
-    height: 36px;
-    font-size: 0.9rem;
+    width: 32px;
+    height: 32px;
+    font-size: 0.75rem;
     border-radius: 50% !important;
   }
 
   #addBtn {
-    font-size: 0.8rem;
-    padding: 8px 14px;
+    font-size: 0.7rem;
+    padding: 6px 10px;
     white-space: nowrap;
+  }
+
+  .grid-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .stat-card {
+    padding: 12px 14px;
+  }
+
+  .stat-card .value {
+    font-size: 1rem;
+  }
+
+  .stat-card .label {
+    font-size: 0.7rem;
   }
 
   .two-col {
     grid-template-columns: 1fr;
   }
 
-  .grid-stats {
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-
-  .stat-card {
-    padding: 14px 16px;
-  }
-
-  .stat-card .value {
-    font-size: 1.2rem;
-  }
-
   .jar-wrap {
-    width: 72px;
-    height: 92px;
+    width: 60px;
+    height: 78px;
   }
 
   .jar-body {
-    width: 72px;
-    height: 82px;
+    width: 60px;
+    height: 70px;
   }
 
   .jar-neck {
-    width: 28px;
-    height: 10px;
+    width: 24px;
+    height: 8px;
   }
 
   .jar-pct {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
 
   .modal-box,
   .modal-content {
-    padding: 18px;
+    padding: 16px;
     max-width: 95%;
     border-radius: var(--radius-md);
-  }
-
-  .footer {
-    padding: 18px 12px 120px;
-    font-size: 0.7rem;
   }
 
   .settings-row {
     flex-direction: column;
     align-items: stretch;
-    gap: 0.6rem;
+    gap: 0.5rem;
   }
 
   .settings-control {
@@ -860,7 +864,7 @@ select option {
 
   .analytics-stats {
     grid-template-columns: 1fr 1fr;
-    gap: 0.6rem;
+    gap: 0.5rem;
   }
 
   .period-selector {
@@ -869,20 +873,20 @@ select option {
   }
 
   .period-btn {
-    font-size: 0.75rem;
-    padding: 0.3rem 0.7rem;
+    font-size: 0.65rem;
+    padding: 0.25rem 0.6rem;
   }
 
   .stat-card-analytics {
-    padding: 0.8rem 1rem;
+    padding: 0.6rem 0.8rem;
   }
 
   .stat-card-analytics .stat-value {
-    font-size: 1.05rem;
+    font-size: 0.95rem;
   }
 
   .chart-container {
-    height: 200px;
+    height: 180px;
   }
 
   .charts-grid {
@@ -895,17 +899,17 @@ select option {
 
   .filters-grid {
     grid-template-columns: 1fr;
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
 
   .filters-section {
-    padding: 0.9rem 1rem;
+    padding: 0.7rem 0.8rem;
   }
 
   .transaction-item-full {
     grid-template-columns: 1fr;
-    gap: 0.4rem;
-    padding: 0.6rem;
+    gap: 0.3rem;
+    padding: 0.5rem;
   }
 
   .transaction-actions {
@@ -915,12 +919,13 @@ select option {
   .filters-stats {
     flex-direction: column;
     text-align: center;
-    gap: 0.3rem;
+    gap: 0.2rem;
+    font-size: 0.75rem;
   }
 
   .stats-right {
     justify-content: center;
-    gap: 0.6rem;
+    gap: 0.4rem;
     flex-wrap: wrap;
   }
 
@@ -928,6 +933,7 @@ select option {
     flex-direction: column;
     align-items: stretch;
     text-align: center;
+    font-size: 0.9rem;
   }
 
   .saving-goal-controls {
@@ -954,24 +960,24 @@ select option {
   }
 
   .stat-card .value {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
   }
 
   .topbar-heading h1 {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
   }
 
   .topbar-heading .eyebrow {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
   }
 
   .topbar-heading .sub {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 
   .modal-box,
   .modal-content {
-    padding: 14px;
+    padding: 12px;
   }
 
   .sub-budgets-grid {
@@ -987,139 +993,92 @@ select option {
   }
 
   .chart-container {
-    height: 180px;
+    height: 160px;
   }
 
   .chart-card {
-    padding: 0.9rem 1rem;
+    padding: 0.7rem 0.8rem;
   }
 
   .filters-section {
-    padding: 0.7rem 0.9rem;
+    padding: 0.5rem 0.6rem;
   }
 
   .transaction-item-full {
-    padding: 0.5rem;
+    padding: 0.4rem;
   }
 
   .transaction-info .title {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
 
   .transaction-amount {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 
   .stats-right {
     flex-direction: column;
-    gap: 0.2rem;
+    gap: 0.1rem;
   }
 
   .sidebar {
-    width: 96%;
-    padding: 8px 12px calc(10px + env(safe-area-inset-bottom));
-    border-radius: 20px !important;
-    bottom: 14px;
+    width: auto;
+    min-width: 200px;
+    max-width: 320px;
+    padding: 6px 10px calc(8px + env(safe-area-inset-bottom));
+    border-radius: 24px !important;
+    bottom: 16px;
+    gap: 2px;
   }
 
   .nav-link {
-    font-size: 0.55rem;
-    padding: 6px 8px;
+    font-size: 0.5rem;
+    padding: 4px 6px;
     border-radius: 12px;
+    min-width: 36px;
   }
 
   .nav-link i {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   .nav-link span {
-    font-size: 0.55rem;
+    font-size: 0.45rem;
   }
 
   .icon-btn-circle {
-    width: 32px;
-    height: 32px;
-    font-size: 0.8rem;
+    width: 28px;
+    height: 28px;
+    font-size: 0.65rem;
   }
 
   #addBtn {
-    font-size: 0.75rem;
-    padding: 6px 12px;
+    font-size: 0.65rem;
+    padding: 4px 8px;
   }
 
   .btn-primary,
   .btn-secondary,
   .btn-danger {
-    font-size: 0.8rem;
-    padding: 8px 14px;
+    font-size: 0.75rem;
+    padding: 6px 12px;
   }
 
   .settings-card {
-    padding: 0.9rem 1rem;
+    padding: 0.7rem 0.8rem;
   }
 
   .settings-section h2 {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 
   .about-stats {
     flex-direction: column;
-    gap: 0.3rem;
+    gap: 0.2rem;
     align-items: center;
   }
 
   .main {
-    padding: 14px 10px 110px;
-  }
-
-  .footer {
-    padding: 14px 10px 110px;
-    font-size: 0.65rem;
-  }
-}
-
-/* ================================================================
-   الطباعة
-   ================================================================ */
-
-@media print {
-  .sidebar,
-  .footer,
-  .topbar-actions,
-  .period-selector,
-  #addBtn,
-  #toastContainer,
-  .info-btn,
-  .info-popover,
-  .popover-overlay {
-    display: none !important;
-  }
-
-  .app-shell {
-    display: block;
-  }
-
-  .main {
-    padding: 0;
-  }
-
-  body {
-    background: #fff !important;
-    color: #000 !important;
-  }
-
-  .card,
-  .stat-card,
-  .settings-card,
-  .chart-card,
-  .filters-section,
-  .transactions-list {
-    box-shadow: none !important;
-    border: 1px solid #ddd !important;
-    break-inside: avoid;
-  }
-
-  .chart-container {
-    height: 200px !important;
+    padding: 12px 8px 90px;
   }
 }
